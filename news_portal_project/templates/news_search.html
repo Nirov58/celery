@@ -1,0 +1,19 @@
+{% extends 'news_list.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+Search Posts
+{% endblock title %}
+
+{% block content_heading %}
+    <h3>Search posts by...</h3>
+
+    <form action="" method="get">
+        {{ filterset.form.as_p }}
+        <input type="submit" value="Search">
+    </form>
+
+    <a href="../">Back to all posts</a>
+{% endblock content_heading %}

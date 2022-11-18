@@ -1,0 +1,22 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_tags %}
+
+{% block content %}
+
+{% if 'create' in request.path %}
+    {% set_var "Create" as operation %}
+    {% set_var request.path|cut:'/'|cut:'create'|cut:'edit'|capfirst as type %}
+{% elif 'edit' in request.path %}
+    {% set_var "Edit" as operation %}
+    {% set_var object.get_type_display as type %}
+{% endif %}
+
+<h1>{{ operation }} {{ type }}</h1>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save" />
+</form>
+{% endblock content %}

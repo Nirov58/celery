@@ -1,0 +1,10 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h2>Page of authorized user {{request.user.username}}</h2>
+<div>User's personal information can be accesed here</div>
+{% if is_not_author %}
+<button> <a href="sign/become_author/">Become author</a> </button>
+{% endif %}
+<button> <a href="sign/logout/">Log out</a> </button>
+{% endblock %}

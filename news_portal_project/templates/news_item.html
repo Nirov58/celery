@@ -1,0 +1,19 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Post {{ news_item.pk}}
+{% endblock title %}
+
+{% block content %}
+<h3>{{ news_item.name|censor }}</h3>
+<h3>Published on {{ news_item.date|date:'d M Y' }}</h3>
+<h3>by {{ news_item.author.user.username }}</h3>
+{{ news_item.text|censor }}
+<p>Categories:
+    <br>{% for c in news_item.category.all %}
+    <a href="category/{{ c.id }}">{{ c.name }}</a>
+    {% endfor %}
+</p>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'news_list.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+{{ news_category.name }}
+{% endblock title %}
+
+{% block content_list %}
+<h2>All posts in '{{ category }}'</h2>
+{% if not request.user in category.subscribers.all %}
+<h5>Interested in this theme?
+    <br><button><a href="../subscribe/{{ category_id }}">Subscribe to it now!</a></button></h5>
+{% else %}
+<h5>Not nterested in this theme anymore?
+    <br><button><a href="../unsubscribe/{{ category_id }}">Click here to unsubscribe</a></button></h5>
+{% endif %}
+<table>
+    <tr>
+        <th>Publication Date</th>
+        <th>Title</th>
+        <th>Author</th>
+    </tr>
+    {% for p in news_category %}
+    {% if category in p.category.all %}
+    <tr>
+        <td>{{ p.date|date:'d M Y' }}</td>
+        <td><a href="../{{ p.id }}">{{ p.name|censor }}</a></td>
+        <td>{{ p.author.user.username }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+{% endblock content_list %}
